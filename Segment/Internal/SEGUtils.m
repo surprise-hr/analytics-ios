@@ -143,15 +143,16 @@ BOOL isUnitTesting()
 NSString *deviceTokenToString(NSData *deviceToken)
 {
     if (!deviceToken) return nil;
-    
-    const unsigned char *buffer = (const unsigned char *)[deviceToken bytes];
-    if (!buffer) {
-        return nil;
-    }
-    NSMutableString *token = [NSMutableString stringWithCapacity:(deviceToken.length * 2)];
-    for (NSUInteger i = 0; i < deviceToken.length; i++) {
-        [token appendString:[NSString stringWithFormat:@"%02lx", (unsigned long)buffer[i]]];
-    }
+    NSString *token = [[NSString alloc] initWithData:deviceToken encoding:NSASCIIStringEncoding];
+    // This logic was changed to store FCM token rather then APNs for Customer.io service
+//    const unsigned char *buffer = (const unsigned char *)[deviceToken bytes];
+//    if (!buffer) {
+//        return nil;
+//    }
+//    NSMutableString *token = [NSMutableString stringWithCapacity:(deviceToken.length * 2)];
+//    for (NSUInteger i = 0; i < deviceToken.length; i++) {
+//        [token appendString:[NSString stringWithFormat:@"%02lx", (unsigned long)buffer[i]]];
+//    }
     return token;
 }
 
